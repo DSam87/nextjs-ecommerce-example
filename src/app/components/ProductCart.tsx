@@ -36,8 +36,8 @@ function ProductCard({ product }: ProductCard) {
           <div>
             <div className="flex flex-col justify-end items-end ">
               {isNew ? (
-                <div className="inline badge badge-accent my-1 ">
-                  <p>New</p>
+                <div className="inline badge  mb-2">
+                  <p className="text-black font-bold uppercase">New</p>
                 </div>
               ) : null}
               <PriceTag

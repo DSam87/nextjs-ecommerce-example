@@ -37,7 +37,11 @@ function ProductHero({ product }: ProductHeroProps) {
               <p className="py-6">{product.description}</p>
             </div>
             <div className="flex flex-col justify-end align-end items-end mt-5 mb-2">
-              {isNew ? <div className="badge">New</div> : null}
+              {isNew ? (
+                <div className="inline badge  mb-2">
+                  <p className="text-black font-bold uppercase">New</p>
+                </div>
+              ) : null}
               <PriceTag className="py-4 px-3 font-bold" price={product.price} />
             </div>
             <div className="flex">

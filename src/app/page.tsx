@@ -22,7 +22,7 @@ export default async function Home() {
   });
 
   return (
-    <div>
+    <div className="p-4">
       <ProductHero
         product={products[0]}
         className={"hero"}
