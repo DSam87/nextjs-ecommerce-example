@@ -5,6 +5,7 @@ import PriceTag from "@/app/components/PriceTag";
 import { Metadata } from "next";
 import { cache } from "react";
 import AddToCartButton from "./AddToCartButton";
+import { incrementProductQuantity } from "./actions";
 
 interface ProductPageProps {
   params: {
@@ -37,7 +38,6 @@ export async function generateMetadata({
 }
 
 async function ProductPage({ params: { id } }: ProductPageProps) {
-  // use prisum to query for the object by the id field
   const product = await getProduct(id);
 
   return (
@@ -56,7 +56,10 @@ async function ProductPage({ params: { id } }: ProductPageProps) {
           <h1 className="text-5xl font-bold mt-5">{product.name}</h1>
           <PriceTag price={product.price} className="mt-4" />
           <p className="py-6">{product.description}</p>
-          <AddToCartButton productId={id} />
+          <AddToCartButton
+            productId={id}
+            incrementProductQuantity={incrementProductQuantity}
+          />
         </div>
       </div>
     </div>
