@@ -3,6 +3,7 @@ import anonJpg from "../../../public/anon.jpg";
 import { redirect } from "next/navigation";
 import { getCart } from "@/lib/db/cart";
 import formatPrice from "@/lib/formatPrice";
+import Link from "next/link";
 
 interface NavbarProps {
   className: string;
@@ -26,12 +27,12 @@ export default async function Navbar({ className }: NavbarProps) {
     <div className={`bg-red-500 `}>
       <div className={`navbar ${className}`}>
         <div className="flex-1">
-          <a
+          <Link
             className="btn btn-ghost normal-case text-3xl text-white "
             href={"/"}
           >
             Ecommerce Website
-          </a>
+          </Link>
         </div>
         <div className="flex-none">
           <form className="form-control mx-1" action={searchProducts}>
@@ -74,9 +75,9 @@ export default async function Navbar({ className }: NavbarProps) {
                   Subtotal: {cart?.subtotal ? formatPrice(cart.subtotal) : ""}
                 </span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
+                  <Link className="btn btn-primary btn-block" href={`/cart`}>
                     View cart
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -97,10 +98,7 @@ export default async function Navbar({ className }: NavbarProps) {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <a className="justify-between">Profile</a>
               </li>
               <li>
                 <a>Settings</a>

@@ -41,7 +41,7 @@ async function ProductPage({ params: { id } }: ProductPageProps) {
   const product = await getProduct(id);
 
   return (
-    <div className="flex justify-center items-center align-middle h-screen p-4">
+    <div className="flex justify-center items-center align-middle p-4">
       <div className="flex flex-col lg:flex-row gap-5 bg-slate-100 p-5 rounded-xl drop-shadow-md hover:drop-shadow-lg transition-all">
         <Image
           src={product.imageUrl}

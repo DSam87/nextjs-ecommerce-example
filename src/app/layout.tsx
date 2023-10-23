@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
 import Navbar from "./Navbar/Navbar";
+import Footer from "./Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${inter.className} flex flex-col justify-between h-screen`}
+      >
         <Navbar className=" max-w-7xl m-auto min-w-[300px]" />
         <main className=" max-w-7xl m-auto min-w-[300px]">{children}</main>
+        <Footer />
       </body>
     </html>
   );
