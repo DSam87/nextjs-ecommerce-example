@@ -1,27 +1,47 @@
 import Image from "next/image";
 import anonJpg from "../../../public/anon.jpg";
+import { redirect } from "next/navigation";
+import { getCart } from "@/lib/db/cart";
+import formatPrice from "@/lib/formatPrice";
 
 interface NavbarProps {
   className: string;
 }
 
-export default function Navbar({ className }: NavbarProps) {
+async function searchProducts(formData: FormData) {
+  "use server";
+
+  const searchQuery = formData.get("search")?.toString();
+
+  if (searchQuery) {
+    redirect(`/search?query=${searchQuery}`);
+  }
+}
+
+export default async function Navbar({ className }: NavbarProps) {
+  "use server";
+  const cart = await getCart();
+
   return (
-    <div className={`bg-base-100 bg-red-500 `}>
+    <div className={`bg-red-500 `}>
       <div className={`navbar ${className}`}>
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-3xl text-white ">
+          <a
+            className="btn btn-ghost normal-case text-3xl text-white "
+            href={"/"}
+          >
             Ecommerce Website
           </a>
         </div>
         <div className="flex-none">
-          <div className="form-control mx-1">
+          <form className="form-control mx-1" action={searchProducts}>
             <input
               type="text"
+              name="search"
               placeholder="Search"
               className="input input-bordered w-24 md:w-auto"
             />
-          </div>
+          </form>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle mx-1">
               <div className="indicator">
@@ -39,7 +59,9 @@ export default function Navbar({ className }: NavbarProps) {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">77</span>
+                <span className="badge badge-sm indicator-item">
+                  {cart?.size ? cart.size : 0}
+                </span>
               </div>
             </label>
             <div
@@ -47,9 +69,9 @@ export default function Navbar({ className }: NavbarProps) {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg">8 Items</span>
-                <span className="text-info text-emerald-700">
-                  Subtotal: $999
+                <span className="font-bold text-lg ">8 Items</span>
+                <span className="text-sm  text-emerald-700">
+                  Subtotal: {cart?.subtotal ? formatPrice(cart.subtotal) : ""}
                 </span>
                 <div className="card-actions">
                   <button className="btn btn-primary btn-block">

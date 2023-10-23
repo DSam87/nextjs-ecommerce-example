@@ -29,7 +29,10 @@ export async function getCart(): Promise<ShoppingCart | null> {
   return {
     ...cart,
     size: cart.cartItems.reduce((acc, item) => acc + item.quantity, 0),
-    subtotal: cart.cartItems.reduce((acc, item) => acc + item.product.price, 0),
+    subtotal: cart.cartItems.reduce(
+      (acc, item) => acc + item.product.price * item.quantity,
+      0,
+    ),
   };
 }
 
