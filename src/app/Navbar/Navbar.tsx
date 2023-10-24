@@ -24,7 +24,7 @@ export default async function Navbar({ className }: NavbarProps) {
   const cart = await getCart();
 
   return (
-    <div className={`bg-red-500 `}>
+    <div className={`bg-red-600 `}>
       <div className={`navbar ${className}`}>
         <div className="flex-1">
           <Link
@@ -70,14 +70,16 @@ export default async function Navbar({ className }: NavbarProps) {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg ">8 Items</span>
+                <span className="font-bold text-lg ">
+                  {cart?.cartItems.length} Items
+                </span>
                 <span className="text-sm  text-emerald-700">
                   Subtotal: {cart?.subtotal ? formatPrice(cart.subtotal) : ""}
                 </span>
                 <div className="card-actions">
-                  <Link className="btn btn-primary btn-block" href={`/cart`}>
+                  <a className="btn btn-primary btn-block" href={`/cart`}>
                     View cart
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

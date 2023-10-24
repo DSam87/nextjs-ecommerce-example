@@ -16,22 +16,22 @@ function ProductHero({ product }: ProductHeroProps) {
 
   return (
     <Link
-      className="inline-block hover:drop-shadow-lg drop-shadow-md transition-all "
+      className="inline-block hover:drop-shadow-lg drop-shadow-md transition-all w-full"
       href={"/products/" + product.id}
     >
-      <div className="hero min-h-[50%] w-[full] rounded-lg bg-base-100">
-        <div className="hero-content flex-col lg:flex-row justify-center items-center text">
-          <figure className="w-full ">
+      <div className="hero min-h-[50%] w-[full] rounded-lg bg-base-100 ">
+        <div className="hero-content flex-col lg:flex-row justify-center items-center text ">
+          <figure className="">
             <Image
               src={product.imageUrl}
-              className="rounded-lg shadow-2xl w-full"
+              className="rounded-lg shadow-2xl w-full max-w-[400px]"
               alt="img"
               width={800}
               height={400}
               priority={true}
             />
           </figure>
-          <div>
+          <div className="w-full">
             <div>
               <h1 className="text-5xl font-bold">{product.name}</h1>
               <p className="py-6">{product.description}</p>

@@ -25,7 +25,7 @@ export default async function Home() {
     <div className="p-4">
       <ProductHero
         product={products[0]}
-        className={"hero"}
+        className={"hero "}
         key={products[0].id}
       />
       <div className="my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
