@@ -11,6 +11,12 @@ export interface ShoppingCart extends CartWithProducts {
   subtotal: number;
 }
 
+// export async function evalGetCart(): Promise<ShoppingCart | null> {
+//   const localCartId = cookies().get("localCartId")?.value;
+//   const cart = localCartId;
+
+// }
+
 export async function getCart(): Promise<ShoppingCart | null> {
   const localCartId = cookies().get("localCartId")?.value;
   console.log("localcartid");

@@ -84,7 +84,14 @@ function AddToCartButton({
             ? "Already In Cart"
             : "Update Cart"
           : "Add to Cart"} */}
-        {currentValue > 1 ? "Updated Cart" : "Add to Cart"}
+        {currentValue === initialProductQuantityValue
+          ? "Item in Cart"
+          : currentValue === 0 && initialProductQuantityValue !== 0
+          ? "Remove Item"
+          : currentValue != initialProductQuantityValue
+          ? "Updated Cart"
+          : "Add to Cart"}
+
         {
           <Image
             className=""
