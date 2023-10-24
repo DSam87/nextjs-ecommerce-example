@@ -11,11 +11,28 @@ export interface ShoppingCart extends CartWithProducts {
   subtotal: number;
 }
 
-// export async function evalGetCart(): Promise<ShoppingCart | null> {
-//   const localCartId = cookies().get("localCartId")?.value;
-//   const cart = localCartId;
+export async function reEvalCart(): Promise<ShoppingCart | null> {
+  const localCartId = cookies().get("localCartId")?.value;
+  const cart = localCartId
+    ? await prisma.cart.findUnique({
+        where: { id: localCartId },
+        include: { cartItems: { include: { product: true } } },
+      })
+    : null;
 
-// }
+  if (!cart) {
+    return null;
+  }
+
+  return {
+    ...cart,
+    size: cart.cartItems.reduce((acc, item) => acc + item.quantity, 0),
+    subtotal: cart.cartItems.reduce(
+      (acc, item) => acc + item.product.price * item.quantity,
+      0,
+    ),
+  };
+}
 
 export async function getCart(): Promise<ShoppingCart | null> {
   const localCartId = cookies().get("localCartId")?.value;

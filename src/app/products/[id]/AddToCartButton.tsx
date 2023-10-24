@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 
 interface AddToCartButtonProps {
   productId: string;
-  initialProductQuantityValue?: number;
+  initialProductQuantityValue: number;
 
   incrementProductQuantity: (
     productId: string,
@@ -39,6 +39,12 @@ function AddToCartButton({
   const [currentValue, setCurrentValue] = useState(
     initialProductQuantityValue ? initialProductQuantityValue : 1,
   );
+
+  const notInCart = initialProductQuantityValue === 0;
+
+  console.log("PRODUCT VALUES!!!!");
+  console.log(initialProductQuantityValue);
+  console.log(currentValue);
 
   return (
     <>
@@ -84,14 +90,22 @@ function AddToCartButton({
             ? "Already In Cart"
             : "Update Cart"
           : "Add to Cart"} */}
-        {currentValue === initialProductQuantityValue
+        {/* {currentValue === initialProductQuantityValue
           ? "Item in Cart"
           : currentValue === 0 && initialProductQuantityValue !== 0
           ? "Remove Item"
           : currentValue != initialProductQuantityValue
           ? "Updated Cart"
-          : "Add to Cart"}
-
+          : "Add to Cart"} */}
+        {notInCart && "Add to Cart"}
+        {currentValue === initialProductQuantityValue &&
+          !notInCart &&
+          "Product in Cart"}
+        {currentValue === 0 && !notInCart && "Remove from Cart"}
+        {currentValue !== initialProductQuantityValue &&
+          !notInCart &&
+          currentValue !== 0 &&
+          "Update Quantity"}
         {
           <Image
             className=""

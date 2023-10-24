@@ -9,7 +9,7 @@ export async function incrementProductQuantity(
   setProductValue: number,
 ) {
   // looking to see if we have a cart to get, if null create a anon cart.
-  const cart = (await getCart()) ?? (await createCart());
+  let cart = (await getCart()) ?? (await createCart());
 
   // we look thorugh our cart we got or created and search our  to see if it has the product by the product id
   const itemInCart = cart.cartItems.find((el) => el.productId === productId);
@@ -21,6 +21,7 @@ export async function incrementProductQuantity(
   if (itemInCart && setProductValue === 0) {
     console.log("DELETE ITEM");
     await prisma.cartItem.delete({ where: { id: itemInCart.id } });
+    revalidatePath("/products/[id]");
     return;
   }
 
@@ -28,6 +29,7 @@ export async function incrementProductQuantity(
 
   // if item is in cart, we in crement the value by one
   // check if the item in cart exists
+
   if (itemInCart) {
     console.log("INSIDE INCART");
     // await prisma get cart item to increment,
