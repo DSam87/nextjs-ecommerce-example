@@ -1,12 +1,8 @@
-import { cookies } from "next/headers";
 import { getCart } from "@/lib/db/cart";
 import Image from "next/image";
 import { ReactElement } from "react";
 import formatPrice from "@/lib/formatPrice";
 import Link from "next/link";
-export const metadata = {
-  title: "Shopping Cart",
-};
 
 export default async function CartPage() {
   // get the cart id from the cookie and query the cart
@@ -48,6 +44,7 @@ export default async function CartPage() {
             </div>
           </td>
           <td>
+            {/* Make sure to create a reus-component for ratings */}
             <div className="rating scale-75">
               <input
                 type="radio"
@@ -114,6 +111,11 @@ export default async function CartPage() {
                 {content}
               </tbody>
               {/* foot */}
+              <tfoot>
+                <tr>
+                  <th>Sub total</th>
+                </tr>
+              </tfoot>
             </table>
           ) : (
             <>
@@ -127,13 +129,13 @@ export default async function CartPage() {
           {cart?.subtotal == 0 ? null : (
             <div className="flex flex-col justify-end items-end align-middle gap-2 mb-10">
               {!cart?.subtotal ? null : (
-                <div className="flex flex-row justify-center align-middle items-center gap-2 mt-10">
+                <div className="flex flex-row justify-center align-middle items-center gap-2">
                   <h2 className="font-bold">Total:</h2>
                   <h2>{formatPrice(cart?.subtotal ? cart.subtotal : 0)}</h2>
                 </div>
               )}
 
-              <button className="btn btn-primary mt-1 px-10  text-white">
+              <button className="btn btn-primary mt-1  text-white">
                 Checkout
               </button>
             </div>

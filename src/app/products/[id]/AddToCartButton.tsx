@@ -34,17 +34,13 @@ function AddToCartButton({
   initialProductQuantityValue,
 }: AddToCartButtonProps) {
   const [isPending, startTransition] = useTransition();
-  const [success, setSuccess] = useState(false);
 
+  const [success, setSuccess] = useState(false);
   const [currentValue, setCurrentValue] = useState(
     initialProductQuantityValue ? initialProductQuantityValue : 1,
   );
 
   const notInCart = initialProductQuantityValue === 0;
-
-  console.log("PRODUCT VALUES!!!!");
-  console.log(initialProductQuantityValue);
-  console.log(currentValue);
 
   return (
     <>
@@ -57,8 +53,9 @@ function AddToCartButton({
           ) : null}
         </div>
         <div className="flex flex-row justify-center items-center">
-          <p>Quantity: </p>
+          <p className="text-xl mr-1">Quantity: </p>
           <select
+            className="py-3 px-5 font-bold"
             onChange={(e) => {
               setCurrentValue(Number(e.target.value));
             }}
@@ -85,18 +82,6 @@ function AddToCartButton({
         }}
         disabled={isPending}
       >
-        {/* {currentValue > 1
-          ? currentValue === initialProductQuantityValue
-            ? "Already In Cart"
-            : "Update Cart"
-          : "Add to Cart"} */}
-        {/* {currentValue === initialProductQuantityValue
-          ? "Item in Cart"
-          : currentValue === 0 && initialProductQuantityValue !== 0
-          ? "Remove Item"
-          : currentValue != initialProductQuantityValue
-          ? "Updated Cart"
-          : "Add to Cart"} */}
         {notInCart && "Add to Cart"}
         {currentValue === initialProductQuantityValue &&
           !notInCart &&
@@ -118,7 +103,7 @@ function AddToCartButton({
       </button>
       {isPending && <span className="loading loading-spinner loading-md" />}
       {!isPending && success && (
-        <span className="text-success">
+        <span className="text-success transition-all">
           {currentValue > 1 ? "Updated Cart" : "Added to Cart"}
         </span>
       )}
