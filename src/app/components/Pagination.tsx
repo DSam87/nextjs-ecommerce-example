@@ -28,8 +28,8 @@ function Pagination({ currentPage, totalPages }: PaginationBarProps) {
   return (
     <>
       <div className="join hidden sm:block">{numberedPageItems}</div>
-      <div className="join block sm:hidden">
-        {currentPage > 1 && (
+      <div className="block md:hidden">
+        {
           <>
             <Link
               href={`?page=${currentPage - 1}`}
@@ -38,7 +38,7 @@ function Pagination({ currentPage, totalPages }: PaginationBarProps) {
               {"<"}
             </Link>
             <button className="join-time btn pointer-events-none mx-3">
-              Page {currentPage}
+              Page {currentPage} of {totalPages}
             </button>
             <Link
               href={`?page=${currentPage + 1}`}
@@ -47,7 +47,7 @@ function Pagination({ currentPage, totalPages }: PaginationBarProps) {
               {">"}
             </Link>
           </>
-        )}
+        }
       </div>
     </>
   );

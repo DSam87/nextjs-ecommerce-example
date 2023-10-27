@@ -18,7 +18,7 @@ export default async function Home({ searchParams: { page = "1" } }: HomeProp) {
 
   const totalItemCount = await prisma.product.count();
 
-  const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize);
+  const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize) - 1;
 
   const products = await prisma.product.findMany({
     orderBy: { id: "desc" },
@@ -36,7 +36,7 @@ export default async function Home({ searchParams: { page = "1" } }: HomeProp) {
     }
   });
 
-  return (
+  return productCards.length ? (
     <div className="p-4 flex flex-col justify-center items-center">
       {
         <ProductHero
@@ -53,5 +53,9 @@ export default async function Home({ searchParams: { page = "1" } }: HomeProp) {
         <Pagination currentPage={currentPage} totalPages={totalPages} />
       )}
     </div>
+  ) : (
+    <h1 className="text-center items-center align-middle text-2xl mb-4 uppercase text-gray-800 mt-10">
+      End Of Shopping List.
+    </h1>
   );
 }
