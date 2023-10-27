@@ -10,16 +10,6 @@ interface NavbarProps {
   className: string;
 }
 
-async function searchProducts(formData: FormData) {
-  "use server";
-
-  const searchQuery = formData.get("search")?.toString();
-
-  if (searchQuery) {
-    redirect(`/search?query=${searchQuery}`);
-  }
-}
-
 export default async function Navbar({ className }: NavbarProps) {
   "use server";
 

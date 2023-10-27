@@ -41,9 +41,9 @@ export default async function CartPage() {
               </div>
             </div>
           </td>
-          <td>
+          <td className="hidden">
             {/* Make sure to create a reus-component for ratings */}
-            <div className="rating scale-75">
+            <div className="rating scale-75 ">
               <input
                 type="radio"
                 name="rating-2"
@@ -77,7 +77,6 @@ export default async function CartPage() {
               href={`/products/${item.product.id}`}
               className="absolute w-full h-full left-0 top-0"
             ></Link>
-            <button className="btn btn-ghost btn-xs">details</button>
           </td>
           <td className="text-center">{item.quantity}</td>
         </tr>
@@ -93,14 +92,13 @@ export default async function CartPage() {
       <div className="cart-item-container">
         <div className="overflow-x-auto">
           {cart?.cartItems.length ? (
-            <table className="table w-full lg:w-[800px]">
+            <table className="table w-auto  max-w-full lg:w-[800px]">
               {/* head */}
               <thead>
                 <tr>
                   <th>Product</th>
                   <th>User Rating</th>
                   <th>Cost</th>
-                  <th>Details</th>
                   <th>Quantity</th>
                 </tr>
               </thead>

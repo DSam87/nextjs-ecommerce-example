@@ -23,7 +23,7 @@ export default function RootLayout({
         className={`${inter.className} flex flex-col justify-between h-screen`}
       >
         <SessionProvider>
-          <Navbar className=" max-w-7xl m-auto min-w-[300px]" />
+          <Navbar className=" max-w-7xl m-auto min-w-[300px] flex-col md:flex-row" />
           <main className=" max-w-7xl m-auto min-w-[300px]">{children}</main>
           <Footer />
         </SessionProvider>

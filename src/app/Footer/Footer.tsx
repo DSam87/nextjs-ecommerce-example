@@ -21,7 +21,7 @@ export default function Footer() {
         <a className="link link-hover">Privacy policy</a>
         <a className="link link-hover">Cookie policy</a>
       </nav>
-      <form>
+      {/* <form>
         <header className="footer-title">Newsletter</header>
         <fieldset className="form-control w-80">
           <label className="label">
@@ -38,7 +38,7 @@ export default function Footer() {
             </button>
           </div>
         </fieldset>
-      </form>
+      </form> */}
     </footer>
   );
 }

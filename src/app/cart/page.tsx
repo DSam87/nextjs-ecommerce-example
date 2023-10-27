@@ -26,10 +26,10 @@ export default async function CartPage() {
       return (
         <tr
           key={item.product.id}
-          className="relative hover:bg-gray-100 transition-all "
+          className="relative hover:bg-gray-100 transition-all"
         >
           <td>
-            <div className="flex items-center space-x-3">
+            <div className="flex  justify-start items-start align-baseline space-x-3">
               <div className="avatar">
                 <div className="mask mask-squircle w-[50%] h-[50%]">
                   <Image
@@ -40,12 +40,12 @@ export default async function CartPage() {
                   />
                 </div>
               </div>
-              <div>
-                <div className="font-bold">{item.product.name}</div>
+              <div className="flex flex-row">
+                {item.product.name + " more text for a test"}
               </div>
             </div>
           </td>
-          <td>
+          <td className=" hidden md:table-cell ">
             <div className="rating scale-75">
               <input
                 type="radio"
@@ -76,20 +76,19 @@ export default async function CartPage() {
           </td>
           <td>{formatPrice(item.product.price)}</td>
           <td>
+            <td className="text-center">{item.quantity}</td>
             <Link
               href={`/products/${item.product.id}`}
               className="absolute w-full h-full left-0 top-0"
             ></Link>
-            <button className="btn btn-ghost btn-xs">details</button>
           </td>
-          <td className="text-center">{item.quantity}</td>
         </tr>
       );
     });
   }
 
   return (
-    <div className="flex flex-col flex-1 ">
+    <div className="flex flex-col flex-1 p-2 md:p-0">
       <h1 className="text-center items-center align-middle text-2xl mb-4 uppercase text-gray-800 mt-10">
         Shopping Cart
       </h1>
@@ -101,9 +100,8 @@ export default async function CartPage() {
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th>User Rating</th>
+                  <th className="hidden md:table-cell">User Rating</th>
                   <th>Cost</th>
-                  <th>Details</th>
                   <th>Quantity</th>
                 </tr>
               </thead>
