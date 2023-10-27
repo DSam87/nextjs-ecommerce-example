@@ -26,8 +26,6 @@ export default async function Home({ searchParams: { page = "1" } }: HomeProp) {
     take: pageSize + heroItemCount,
   });
 
-  // function getHeroCard(productCardsArray) {}
-
   let productCards = products.map((product, index) => {
     if (index === 0) {
       return null;

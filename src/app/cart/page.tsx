@@ -9,8 +9,6 @@ export const metadata = {
 };
 
 export default async function CartPage() {
-  // get the cart id from the cookie and query the cart
-  // get this to rerun every time we open this page.
   const cart = await getCart();
   console.log("cart in cartPage");
   console.dir(cart, { depth: Infinity });
