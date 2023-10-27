@@ -13,18 +13,22 @@ interface HomeProp {
 
 export default async function Home({ searchParams: { page = "1" } }: HomeProp) {
   const currentPage = parseInt(page);
-  const pageSize = 6;
+  const pageSize = 3;
   const heroItemCount = 1;
 
   const totalItemCount = await prisma.product.count();
 
-  const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize) - 1;
+  let totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize) - 1;
+  if (totalPages <= 0) totalPages = 1;
 
   const products = await prisma.product.findMany({
     orderBy: { id: "desc" },
-    skip: currentPage * pageSize + heroItemCount,
+    skip: page !== "1" ? currentPage * pageSize + heroItemCount : 0,
     take: pageSize + heroItemCount,
   });
+
+  console.log("THE PRODUCTS");
+  console.log(products);
 
   let productCards = products.map((product, index) => {
     if (index === 0) {
@@ -49,7 +53,7 @@ export default async function Home({ searchParams: { page = "1" } }: HomeProp) {
         {productCards.slice(1)}
       </div>
       <div className="my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
-      {totalPages > 1 && (
+      {totalPages > 0 && (
         <Pagination currentPage={currentPage} totalPages={totalPages} />
       )}
     </div>
