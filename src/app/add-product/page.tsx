@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db/prisma";
 import { redirect } from "next/navigation";
 import FormSubmitButton from "../components/FormSubmitButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export const metadata = {
   title: "Add Product - Ecommerce Example Website",
@@ -8,6 +10,11 @@ export const metadata = {
 
 async function addProduct(formData: FormData) {
   "use server";
+
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/");
+  }
 
   const name = formData.get("name")?.toString();
   const description = formData.get("description")?.toString();
@@ -18,12 +25,18 @@ async function addProduct(formData: FormData) {
     throw new Error("Missing reqkuired fields!");
   }
 
-  await prisma.product.create({ data: { name, description, imageUrl, price } });
+  await prisma.product.create({
+    data: { name, description, imageUrl, price },
+  });
 
   redirect("/");
 }
 
-function AddProductPage() {
+async function AddProductPage() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/");
+  }
   return (
     <div>
       <h1 className="mb-3 text-lg font-bold">Add Product</h1>

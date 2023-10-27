@@ -1,9 +1,10 @@
-import Image from "next/image";
-import anonJpg from "../../../public/anon.jpg";
 import { redirect } from "next/navigation";
 import { getCart } from "@/lib/db/cart";
 import formatPrice from "@/lib/formatPrice";
 import Link from "next/link";
+import UserMenuButton from "./UserMenuButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 interface NavbarProps {
   className: string;
@@ -21,6 +22,8 @@ async function searchProducts(formData: FormData) {
 
 export default async function Navbar({ className }: NavbarProps) {
   "use server";
+
+  const session = await getServerSession(authOptions);
   const cart = await getCart();
 
   return (
@@ -35,23 +38,15 @@ export default async function Navbar({ className }: NavbarProps) {
           </Link>
         </div>
         <div className="flex-none">
-          <form className="form-control mx-1" action={searchProducts}>
-            <input
-              type="text"
-              name="search"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-            />
-          </form>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle mx-1">
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
+                  className="h-7 w-7"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  stroke="white"
                 >
                   <path
                     strokeLinecap="round"
@@ -84,32 +79,7 @@ export default async function Navbar({ className }: NavbarProps) {
               </div>
             </div>
           </div>
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <Image
-                  src={anonJpg}
-                  width={150}
-                  height={150}
-                  alt="user image"
-                />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">Profile</a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          <UserMenuButton session={session} />
         </div>
       </div>
     </div>
